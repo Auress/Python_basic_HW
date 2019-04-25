@@ -64,6 +64,7 @@ while True:
         print(lucky_ticket(123006))
         print(lucky_ticket(12321))
         print(lucky_ticket(436751))
+        print(lucky_ticket(123456))
         print(lucky_ticket('kj'))
 
     if task == 0:

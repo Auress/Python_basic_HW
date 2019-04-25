@@ -73,38 +73,68 @@ while True:
         import math
 
         def straight(dot_1, dot_2):        # Считаем коэф-ты 'a' и 'b' для уравнения y + a * x + b = 0
-            a = (dot_1[1] - dot_2[1]) / (dot_2[0] - dot_1[0])       # a = (y1-y2)/(x2-x1)
-            b = (dot_1[0] * dot_2[1] - dot_2[0] * dot_1[1]) / (dot_2[0] - dot_1[0])     # b = (x1y2-x2y1)/(x2-x1)
-            return a, b
+            if (dot_2[0] - dot_1[0]) != 0:
+                a = (dot_1[1] - dot_2[1]) / (dot_2[0] - dot_1[0])       # a = (y1-y2)/(x2-x1)
+                b = (dot_1[0] * dot_2[1] - dot_2[0] * dot_1[1]) / (dot_2[0] - dot_1[0])     # b = (x1y2-x2y1)/(x2-x1)
+                if a != 0:
+                    return a, b, ''
+                else:
+                    return 0, 0, 'Error'
+            else:
+                return 0, 0, 'Error'
 
 
-        def line(dot_1, dot_2):     # Считаем длину линии от точки 1 до точки 2
-            length = math.sqrt(math.pow(math.fabs(dot_2[0] - dot_1[0]), 2) +
-                               math.pow(math.fabs(dot_2[1] - dot_1[1]), 2))
-            return length
+        def rotate(dot, alfa):       # Попорачиватель оси координат
+            x = dot[0] * math.cos(alfa * math.pi / 180.0) - dot[1] * math.sin(alfa * math.pi / 180.0)
+            y = dot[0] * math.sin(alfa * math.pi / 180.0) + dot[1] * math.cos(alfa * math.pi / 180.0)
+            return x, y
+
 
         A_1 = (1, 2)
         A_2 = (2, 6)
         A_3 = (7, 7)
         A_4 = (6, 3)
 
-        if round(line(A_2, A_1), 3) == round(line(A_3, A_4), 3):
-            print('Стороны А_1А_2 и А_3А_4 равны')
-            if round(line(A_2, A_3), 3) == round(line(A_1, A_4), 3):
-                print('Стороны А_2А_3 и А_1А_4 равны')
-                # 1)Линии параллельны, коэф-ты 'а' равны 2)Линии не лежат, друг на друге, коэф-ты 'b' не равны
-                if round(straight(A_2, A_3)[0], 3) == round(straight(A_1, A_4)[0], 3):
-                    if straight(A_2, A_3)[1] != straight(A_1, A_4)[1]:
-                        print('Стороны А_2А_3 и А_1А_4 параллельны')
-                        print('Это параллелограмм !')
-                    else:
-                        print('Стороны А_2А_3 и А_1А_4 лежат друг на друге - данные точки не вершины параллелограмма')
-                else:
-                    print('Стороны А_2А_3 и А_1А_4 не параллельны - данные точки не вершины параллелограмма')
+        # A_1 = (1, 2)
+        # A_2 = (1, 6)
+        # A_3 = (6, 6)
+        # A_4 = (6, 2)
+
+        deg = 0        # Угол поворота оси координат
+
+        while True:
+            if A_1 == A_2 or A_1 == A_3 or A_1 == A_4 or A_2 == A_3 or A_2 == A_4 or A_3 == A_4:
+                print('некоторые точки совпадают - данные точки не вершины параллелограмма')
+                break
+            if straight(A_1, A_2)[2] == 'Error' or straight(A_3, A_4)[2] == 'Error' or straight(A_2, A_3)[2] == 'Error' \
+                    or straight(A_1, A_4)[2] == 'Error':        # Проверка на параллельность сторон осям координат
+                deg = 30  # Угол поворота оси координат
+                A_1 = rotate(A_1, deg)
+                A_2 = rotate(A_2, deg)
+                A_3 = rotate(A_3, deg)
+                A_4 = rotate(A_4, deg)
+            if round(straight(A_1, A_2)[0], 3) == round(straight(A_3, A_4)[0], 3):
+                print('Стороны А_1А_2 и А_3А_4 параллельны')
             else:
-                print('Стороны А_2А_3 и А_1А_4 не равны - данные точки не вершины параллелограмма')
-        else:
-            print('Стороны А_1А_2 и А_3А_4 не равны - данные точки не вершины параллелограмма')
+                print('Стороны А_1А_2 и А_3А_4 не параллельны - данные точки не вершины параллелограмма')
+                break
+            if straight(A_1, A_2)[1] != straight(A_3, A_4)[1]:
+                print('Стороны А_1А_2 и А_3А_4 не лежат, друг на друге')
+            else:
+                print('Стороны А_1А_2 и А_3А_4 лежат друг на друге - данные точки не вершины параллелограмма')
+                break
+            if round(straight(A_2, A_3)[0], 3) == round(straight(A_1, A_4)[0], 3):
+                print('Стороны А_2А_3 и А_1А_4 параллельны')
+            else:
+                print('Стороны А_2А_3 и А_1А_4 не параллельны - данные точки не вершины параллелограмма')
+                break
+            if straight(A_2, A_3)[1] != straight(A_1, A_4)[1]:
+                print('Стороны А_2А_3 и А_1А_4 не лежат, друг на друге')
+            else:
+                print('Стороны А_2А_3 и А_1А_4 лежат друг на друге - данные точки не вершины параллелограмма')
+                break
+            print('Это параллелограмм !')
+            break
 
     if task == 0:
         break
