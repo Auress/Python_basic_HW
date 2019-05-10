@@ -76,20 +76,18 @@ if __name__ == "__main__":
                 if task == 'q':
                     break
 
-
     # Задача-2:
     # Напишите скрипт, отображающий папки текущей директории.
 
         if task == '2':
             cur_path_dir()
 
-
     # Задача-3:
     # Напишите скрипт, создающий копию файла, из которого запущен данный скрипт.
 
         if task == '3':
             file_to_copy = sys.argv[0]
-            new_file = file_to_copy + '.dupl'
+            new_file = str(os.path.splitext(file_to_copy)[0]+'(2)'+os.path.splitext(file_to_copy)[1])
             if os.path.exists(new_file):
                 notEmpty = input(f'Файл {new_file} уже существует !! Перезаписать ? у :')
                 if notEmpty == 'y':
