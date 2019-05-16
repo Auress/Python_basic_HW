@@ -156,7 +156,8 @@ if __name__ == "__main__":
 
         if task == '1':
             # tri_1 = Triangle((0, 0), (7, 5), (3, 2))
-            while True:
+            flag = True
+            while flag:
                 try:
                     print('Ввод точек сторон треугольника (3 точки):')
                     ax = float(input('Введите координату х точки a :'))
@@ -171,9 +172,10 @@ if __name__ == "__main__":
                 else:
                     tri_1 = Triangle((ax, ay), (bx, by), (cx, cy))
                 while True:
-                    todo = input('Введите чтобы расчитать (1/2/3/4): '
+                    todo = input('Введите чтобы расчитать (1/2/3/4/q): '
                                  '\n1 - Площадь треугольника \n2 - Высоты треугольника '
-                                 '\n3 - Периметр треугольника \n4 - Указать другие координаты\n')
+                                 '\n3 - Периметр треугольника \n4 - Указать другие координаты '
+                                 '\nq - Вернуться к выбору задачи\n')
                     if todo == '1':
                         print(f'Площадь треугольника равна {tri_1.get_square()}')
                     if todo == '2':
@@ -181,6 +183,9 @@ if __name__ == "__main__":
                     if todo == '3':
                         print(f'Периметр треугольника равен {tri_1.get_perimeter()}')
                     if todo == '4':
+                        break
+                    if todo == 'q':
+                        flag = False
                         break
                     else:
                         continue
@@ -195,7 +200,8 @@ if __name__ == "__main__":
             # tra_1 = Trapezium((1, 0.5), (2, 4), (5, 4), (6, 0.5))     # ОК
             # tra_1 = Trapezium((1, 2), (2, 6), (7, 7), (6, 3))     # not OK
             # tra_1 = Trapezium((2, 3), (4, 5), (6, 7), (8, 9))  # Одна линия
-            while True:
+            flag = True
+            while flag:
                 try:
                     print('Ввод точек сторон трапеции (4 точки):')
                     ax = float(input('Введите координату х точки a :'))
@@ -215,7 +221,8 @@ if __name__ == "__main__":
                     while True:
                         todo = input('Введите чтобы расчитать (1/2/3/4): '
                                      '\n1 - Площадь трапеции \n2 - Длины сторон трапеции '
-                                     '\n3 - Периметр трапеции \n4 - Указать другие координаты\n')
+                                     '\n3 - Периметр трапеции \n4 - Указать другие координаты '
+                                     '\nq - Вернуться к выбору задачи\n')
                         if todo == '1':
                             print(f'Площадь трапеции равна {tra_1.get_square()}')
                         if todo == '2':
@@ -223,6 +230,9 @@ if __name__ == "__main__":
                         if todo == '3':
                             print(f'Периметр трапеции равен {tra_1.get_perimeter()}')
                         if todo == '4':
+                            break
+                        if todo == 'q':
+                            flag = False
                             break
                         else:
                             continue

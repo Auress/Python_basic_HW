@@ -22,9 +22,15 @@ import os
 # 5. Получить список всех Учителей, преподающих в указанном классе
 
 
-class Pupil:
-    def __init__(self, pupils, fio):
+class People:
+    def __init__(self, pupils, teachers):
         self.pupils = pupils
+        self.teachers = teachers
+
+
+class Pupil(People):
+    def __init__(self, pupils, fio):
+        super().__init__(pupils, None)
         self.fio = fio
 
     def info_parents(self):
@@ -33,10 +39,9 @@ class Pupil:
         return father, mother
 
 
-class School:
+class School(People):
     def __init__(self, pupils, teachers):
-        self.pupils = pupils
-        self.teachers = teachers
+        super().__init__(pupils, teachers)
 
     def get_classes(self):
         class_nums = [elem.split(';')[3] for elem in self.pupils]
